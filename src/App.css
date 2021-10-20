@@ -126,3 +126,24 @@ nav .login {
   height: 20rem;
   width: 70rem;
 }
+
+.auth-form {
+}
+
+.add-article-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-article {
+  width: 60%;
+  height: 80%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
