@@ -1,74 +1,36 @@
 import "./App.css";
-// import Navigation from "./components/Navigation";
-// import Articles from "./components/Articles";
-// import { useState } from "react";
-// import CategoryPane from "./components/CategoryPane";
-// import articleImg from "./assets/imges.jpg";
-import AddArticle from "./components/AddArticle";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import Navigation from "./components/navigation/Navigation";
+import ArticlesList from "./pages/articlesList/Articles";
+import ArticleDetail from "./pages/articleDetail/ArticleDetail";
+import CategoryPane from "./components/categoriePane/CategoryPane";
 
 function App() {
-  // const [currentUserRole, setCurrentUserRole] = useState("visitor");
-
-  // const [categories, setCategory] = useState([
-  //   "Sport",
-  //   "Coronavirus",
-  //   "Climat",
-  //   "Sante",
-  //   "Politique",
-  //   "Monde",
-  //   "Science",
-  // ]);
-
-  // const [articles, setArticles] = useState([
-  //   {
-  //     id: 0,
-  //     image: { articleImg },
-  //     title: "Greve UCAD",
-  //     textContent:
-  //       "Lorem ipsum dolor sit amet consectetur, " +
-  //       "adipisicing elit. Exercitationem esse nostrum repellendus " +
-  //       "numquam ullam molestias minus rerum, mollitia labore sunt" +
-  //       " necessitatibus blanditiis incidunt id, ea quibusdam " +
-  //       "delectus repellat libero debitis.",
-  //     category: "education",
-  //     date: Date.now,
-  //   },
-  //   {
-  //     id: 1,
-  //     image: { articleImg },
-  //     title: "Augmentation des cas de covid",
-  //     textContent:
-  //       "Lorem ipsum dolor sit amet consectetur, " +
-  //       "adipisicing elit. Exercitationem esse nostrum repellendus " +
-  //       "numquam ullam molestias minus rerum, mollitia labore sunt" +
-  //       " necessitatibus blanditiis incidunt id, ea quibusdam " +
-  //       "delectus repellat libero debitis.",
-  //     category: "Sante",
-  //     date: Date.now,
-  //   },
-  //   {
-  //     id: 2,
-  //     image: { articleImg },
-  //     title: "Greve UCAD",
-  //     textContent:
-  //       "Lorem ipsum dolor sit amet consectetur, " +
-  //       "adipisicing elit. Exercitationem esse nostrum repellendus " +
-  //       "numquam ullam molestias minus rerum, mollitia labore sunt" +
-  //       " necessitatibus blanditiis incidunt id, ea quibusdam " +
-  //       "delectus repellat libero debitis.",
-  //     category: "Politique",
-  //     date: Date.now,
-  //   },
-  // ]);
   return (
-    <div className="App">
-      <AddArticle />
-      {/* <Navigation />
-      <section className="hero">
-        <CategoryPane categories={categories} />
-        <Articles articles={articles} />
-      </section> */}
-    </div>
+    <>
+      <Navigation />
+      <CategoryPane />
+      <div className="container">
+        <main className="main">
+          <BrowserRouter>
+            <Switch>
+              <Route path="/articles">
+                <ArticlesList />
+              </Route>
+              <Route path="/articleDetail/:id">
+                <ArticleDetail />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/articles" />
+              </Route>
+              <Route path="*">
+                <ArticlesList />
+              </Route>{" "}
+            </Switch>
+          </BrowserRouter>
+        </main>
+      </div>
+    </>
   );
 }
 
