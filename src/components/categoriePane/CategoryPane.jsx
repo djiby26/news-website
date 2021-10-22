@@ -5,9 +5,9 @@ const CategoryPane = ({ categories }) => {
   return (
     <div className="category-pane">
       <h3>Categories</h3>
-      {categories.map((category) => (
-        <a href="#">{category}</a>
-      ))}
+      {/* {categories.map((category) => (
+        <a href="#">{category.title}</a>
+      ))} */}
     </div>
   );
 };
