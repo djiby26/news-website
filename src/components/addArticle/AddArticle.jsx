@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-
 export default function AddArticle({ closeModal }) {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const data = await axios.get("http://localhost:1337/categories");
+      setCategories([...data?.data]);
+    }
+    fetchCategories();
+  }, []);
   const [disable, setDisable] = useState(false);
   async function saveArticle() {
-    const title = window.newsTitle.value;
-    const imageUrl = window.newsImageUrl.value;
-    const ecritPar = window.newsWrittenBy.value;
-    const text = window.newsBody.value;
-    const lang = window.addNewsLocales.value;
+    const title = window.articleTitle.value;
+    const imageUrl = window.articleImageUrl.value;
+    const ecritPar = window.articleEcritPar.value;
+    const text = window.articleText.value;
+    const category = window.articleCategory.value;
 
     setDisable(true);
     await axios.post("http://localhost:1337/articles", {
@@ -16,7 +24,7 @@ export default function AddArticle({ closeModal }) {
       imageUrl,
       ecritPar,
       text,
-      locale: lang,
+      category,
     });
     window.location.reload();
     setDisable(false);
@@ -42,17 +50,20 @@ export default function AddArticle({ closeModal }) {
                 <label>Title</label>
               </div>
               <div>
-                <input id="newsTitle" type="text" />
+                <input id="articleTitle" type="text" />
               </div>
             </div>
             <div className="inputField">
               <div className="label">
-                <label>Lang</label>
+                <label>Category</label>
               </div>
               <div>
-                <select name="addNewsLocales" id="addNewsLocales">
-                  <option value="en">English</option>
-                  <option value="fr-FR">French</option>
+                <select id="articleCategory">
+                  {categories.map((category) => {
+                    return (
+                      <option value={category.title}>{category.title}</option>
+                    );
+                  })}
                 </select>
               </div>
             </div>
@@ -61,24 +72,24 @@ export default function AddArticle({ closeModal }) {
                 <label>ImageUrl</label>
               </div>
               <div>
-                <input id="newsImageUrl" type="text" />
+                <input id="articleImageUrl" type="text" />
               </div>
             </div>
             <div className="inputField">
               <div className="label">
-                <label>Written By</label>
+                <label>Ecrit Par</label>
               </div>
               <div>
-                <input id="newsWrittenBy" type="text" />
+                <input id="articleEcritPar" type="text" />
               </div>
             </div>
             <div className="inputField" style={{ flex: "2 1 100%" }}>
               <div className="label">
-                <label>Body</label>
+                <label>Texte</label>
               </div>
               <div>
                 <textarea
-                  id="newsBody"
+                  id="articleText"
                   style={{ width: "100%", height: "200px" }}
                 ></textarea>
               </div>
