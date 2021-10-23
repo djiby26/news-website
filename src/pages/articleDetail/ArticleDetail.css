@@ -1,4 +1,7 @@
 .newsview {
+  background-color: white;
+  width: 90%;
+  border-radius: 8px;
   margin-top: 7px;
 }
 .newsviewimg {

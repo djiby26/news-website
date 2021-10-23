@@ -1,19 +1,28 @@
 import React from "react";
+import "./ArticlesByCategory.css";
 import ArticleCard from "../../components/articlesCard/ArticleCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./Articles.css";
+import { useParams } from "react-router";
 
-const Articles = () => {
+const ArticlesByCategory = () => {
   const [articles, setArticles] = useState([]);
+  //   const [category, setCategory] = useState("");
+  let { category } = useParams();
 
   useEffect(() => {
     async function fetchArticles() {
-      const data = await axios.get("http://localhost:1337/articles");
+      const data = await axios.get(
+        "http://localhost:1337/articles?_where[category]=" + category
+      );
       setArticles([...data?.data]);
     }
     fetchArticles();
   }, []);
+
+  const getCategories = (category) => {
+    // setCategory(category);
+  };
 
   return (
     <div className="articlelist">
@@ -26,4 +35,4 @@ const Articles = () => {
   );
 };
 
-export default Articles;
+export default ArticlesByCategory;

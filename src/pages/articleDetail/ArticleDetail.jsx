@@ -16,9 +16,9 @@ export default function ArticleDetail() {
   }, [id]);
 
   async function deleteArticle() {
-    if (window.confirm("Do you want to delete this news?")) {
-      await axios.delete("http://localhost:1337/newsposts/" + id);
-      window.history.pushState(null, "", "/news");
+    if (window.confirm("Supprimer ?")) {
+      await axios.delete("http://localhost:1337/articles/" + id);
+      window.history.pushState(null, "", "/articles");
       window.location.reload();
     }
   }
@@ -35,14 +35,14 @@ export default function ArticleDetail() {
           </div>
           <div className="newsviewdetails">
             <span style={{ flex: "1", color: "rgb(99 98 98)" }}>
-              Written By: <span>{article?.ecritPar}</span>
+              Ecrit Par: <span>{article?.ecritPar}</span>
             </span>
             <span style={{ flex: "1", color: "rgb(99 98 98)" }}>
-              Date: <span>{article?.created_at}</span>
+              Date: <span>{article?.datePublication}</span>
             </span>
             <span>
               <button className="btn-danger" onClick={deleteArticle}>
-                Delete
+                Supprimer
               </button>
             </span>
           </div>
